@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapp.HttpConnect;
 import com.example.myapp.LectInfo;
 import com.example.myapp.MainActivity;
 import com.example.myapp.R;
@@ -84,6 +85,16 @@ public class DetailFragment extends Fragment {
     public void addLecture(){
         Log.e("my","add clicked!");
         gv.addLecture(mData);
+        final String base_url="https://k03c8j1o5a.execute-api.ap-northeast-2.amazonaws.com/v1/programmers/timetable";
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                HttpConnect hp=new HttpConnect();
+                hp.run(1,base_url,mData.getCode());
+            }
+        }.start();
+
         getFragmentManager().beginTransaction()
                 .replace(R.id.main, MainFragment.newInstance())
                 .commitNow();
@@ -92,4 +103,5 @@ public class DetailFragment extends Fragment {
     public void addMemo(){
 
     }
+
 }
