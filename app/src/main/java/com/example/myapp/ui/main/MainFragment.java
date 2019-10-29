@@ -38,7 +38,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Log.d("my","click!!");
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, SearchFragment.newInstance())
+                        .replace(R.id.main, SearchFragment.newInstance())
                         .commitNow();
             }
         });

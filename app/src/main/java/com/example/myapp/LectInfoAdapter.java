@@ -16,6 +16,9 @@ public class LectInfoAdapter extends BaseAdapter {
     LayoutInflater mLayoutInflater = null;
     ArrayList<LectInfo> sample;
 
+    public LectInfoAdapter(ArrayList<LectInfo> data) {
+        sample = data;
+    }
     public LectInfoAdapter(Context context, ArrayList<LectInfo> data) {
         mContext = context;
         sample = data;
@@ -48,11 +51,13 @@ public class LectInfoAdapter extends BaseAdapter {
         TextView place_view = (TextView)lect_view.findViewById(R.id.place_view);
 
         title_view.setText(sample.get(i).getTitle());
-        time_view.setText(sample.get(i).getTime());
-        cord_view.setText(sample.get(i).getCord());
+        String str=sample.get(i).getStart_time()+" - "+sample.get(i).getEnd_time()+" | "+sample.get(i).getDays();
+        time_view.setText(str);
+        cord_view.setText(sample.get(i).getCode());
         teacher_view.setText(sample.get(i).getTeacher());
         place_view.setText(sample.get(i).getPlace());
 
         return lect_view;
     }
+
 }

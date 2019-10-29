@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="강의 검색"
+            android:id="@+id/keyword"
             android:textStyle="bold"/>
     </LinearLayout>
     <ScrollView
