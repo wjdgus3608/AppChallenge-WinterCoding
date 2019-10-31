@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment {
                 Log.e("my",i+" clicked!!");
                 DetailFragment fragment=new DetailFragment((LectInfo)adapterView.getItemAtPosition(i));
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.main, fragment)
+                        .replace(R.id.search_main, fragment)
                         .commitNow();
             }
         });

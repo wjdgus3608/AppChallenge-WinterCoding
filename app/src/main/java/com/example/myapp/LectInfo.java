@@ -1,5 +1,7 @@
 package com.example.myapp;
 
+import java.util.ArrayList;
+
 public class LectInfo {
     private String title;
     private String start_time;
@@ -8,8 +10,16 @@ public class LectInfo {
     private String code;
     private String teacher;
     private String place;
-
+    private ArrayList<Memo> memoList=new ArrayList<>();
     public LectInfo() {
+    }
+
+    public void addMemo(Memo memo){
+        memoList.add(memo);
+    }
+
+    public ArrayList<Memo> getMemoList(){
+        return memoList;
     }
 
     public String getTitle() {

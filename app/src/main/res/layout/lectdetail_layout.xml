@@ -104,10 +104,11 @@
             android:textSize="15dp"
             android:text="세부내용"
             android:id="@+id/d_detail"/>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/memo"/>
+                android:orientation="vertical"
+                android:id="@+id/memo_box"/>
         </LinearLayout>
     </ScrollView>
     <Button

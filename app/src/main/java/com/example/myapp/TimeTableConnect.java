@@ -2,6 +2,9 @@ package com.example.myapp;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class HttpConnect {
+public class TimeTableConnect {
     public String run(int mode, String myurl, String data){
         String api_key="QJuHAX8evMY24jvpHfHQ4pHGetlk5vn8FJbk70O6";
         try {
@@ -19,13 +22,14 @@ public class HttpConnect {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 if(mode==0)
                     conn.setRequestMethod("GET");
-                else if(mode==1)
+                else if(mode==1) {
                     conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
 
+                }
 
                 conn.setRequestProperty("x-api-key", api_key);
                 conn.setRequestProperty("Content-Type", "application/json");
-                if (conn.getResponseCode() == conn.HTTP_OK) {
                     if(mode==0) {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                         String line;
@@ -38,20 +42,36 @@ public class HttpConnect {
                         return page;
                     }
                     else if(mode==1){
-                        String strParams = data; //sbParams에 정리한 파라미터들을 스트링으로 저장. 예)id=id1&pw=123;
-                        OutputStream os = conn.getOutputStream();
-                        os.write(strParams.getBytes("UTF-8")); // 출력 스트림에 출력.
-                        os.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
-                        os.close();
+
+                        try {
+                            OutputStream os = conn.getOutputStream();
+                            JSONObject job = new JSONObject();
+                            job.put("user_key", "8882ca818a4ee457998b5c010ae9f1a1");
+                            job.put("code", data);
+                            Log.e("my",job.toString());
+                            os.write(job.toString().getBytes("UTF-8"));
+                            os.flush();
+
+                            BufferedReader br = new BufferedReader(new InputStreamReader(
+                                    (conn.getInputStream())));
+
+                            String output;
+                            System.out.println("Output from Server .... \n");
+                            while ((output = br.readLine()) != null) {
+                                System.out.println(output);
+                            }
+
+                        }
+                        catch (JSONException e){
+                            Log.e("my",e.toString());
+                        }
+
                         return null;
                     }
                     else if(mode==2){
 
                     }
                     return null;
-                } else {
-                    Log.e("my", conn.getResponseCode() + " error");
-                }
             } catch (IOException e) {
                 Log.e("my", e.toString());
             }
